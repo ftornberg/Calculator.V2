@@ -88,7 +88,6 @@ namespace Calculator
                         float kvot = value1 / value2;
                         Console.WriteLine("Din uträkning: " + value1 + " / " + value2 + " = " + kvot);
                     }
-
                 }
 
                 if (_operator == "*")
