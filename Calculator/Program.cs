@@ -67,13 +67,13 @@ namespace Calculator
                 if (_operator == "+")
                 {
                     float summa = value1 + value2;
-                    Console.WriteLine("Din uträkning ser ut såhär: " + value1 + " + " + value2 + " = " + summa);
+                    Console.WriteLine("Din uträkning: " + value1 + " + " + value2 + " = " + summa);
                 }
 
                 if (_operator == "-")
                 {
                     float differans = value1 + value2;
-                    Console.WriteLine("Din uträkning ser ut såhär: " + value1 + " - " + value2 + " = " + differans);
+                    Console.WriteLine("Din uträkning: " + value1 + " - " + value2 + " = " + differans);
                 }
 
                 if (_operator == "/")
@@ -86,7 +86,7 @@ namespace Calculator
                     else
                     {
                         float kvot = value1 / value2;
-                        Console.WriteLine("Din uträkning ser ut såhär: " + value1 + " / " + value2 + " = " + kvot);
+                        Console.WriteLine("Din uträkning: " + value1 + " / " + value2 + " = " + kvot);
                     }
 
                 }
@@ -94,7 +94,7 @@ namespace Calculator
                 if (_operator == "*")
                 {
                     float produkt = value1 + value2;
-                    Console.WriteLine("Din uträkning ser ut såhär: " + value1 + " * " + value2 + " = " + produkt);
+                    Console.WriteLine("Din uträkning: " + value1 + " * " + value2 + " = " + produkt);
                 }
             }
         }
