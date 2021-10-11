@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Calculator
 {
@@ -7,7 +8,7 @@ namespace Calculator
     {
         public static void Main(string[] args)
         {
-            List<int> resultat = new List<int>();
+            List<float> resultat = new List<float>();
 
             string input = string.Empty;
             string _operator;
@@ -43,7 +44,7 @@ namespace Calculator
                     Marcus(input);
                     _operator = input;
 
-                } while (!isvalidoperator(input));
+                } while (!Isvalidoperator(input));
 
                 bool value2isvalid = false;
                 do
@@ -68,6 +69,7 @@ namespace Calculator
                 {
                     float summa = value1 + value2;
                     Console.WriteLine("Din uträkning: " + value1 + " + " + value2 + " = " + summa);
+                    resultat.AddRange(new float[] { value1, value2, summa});
                 }
 
                 if (_operator == "-")
@@ -95,12 +97,19 @@ namespace Calculator
                     float produkt = value1 + value2;
                     Console.WriteLine("Din uträkning: " + value1 + " * " + value2 + " = " + produkt);
                 }
+                for (int i = 0; i < resultat.length; i++)
+                {
+                    Console.WriteLine("Tal 1: " + i);
+                    Console.WriteLine("Tal 2: " + i);
+                    Console.WriteLine("Med summa: " + resultat.Sum());
+                } 
             }
+
         }
 
         
 
-        private static bool isvalidoperator(string input)
+        private static bool Isvalidoperator(string input)
         {
             if (input == "+")
             {
