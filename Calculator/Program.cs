@@ -8,7 +8,7 @@ namespace Calculator
     {
         public static void Main(string[] args)
         {
-            Dictionary<string, float> resultat = new Dictionary<string, float>();
+            List<float> resultat = new List<float>();
 
             string input = string.Empty;
             string _operator;
@@ -67,17 +67,17 @@ namespace Calculator
                 
                 if (_operator == "+")
                 {
-                    float summa = value1 + value2;
-                    Console.WriteLine("Din uträkning: " + value1 + " + " + value2 + " = " + summa);
-                    resultat.Add("Resultat: ", value1, " + ",value2, " = ", summa);
-                    //resultat.Add(value2);
-                    //resultat.Add(summa);
+                    float sum = value1 + value2;
+                    Console.WriteLine("Din uträkning: " + value1 + " + " + value2 + " = " + sum);
+                    resultat.Add(value1);
+                    resultat.Add(value2);
+                    resultat.Add(sum);
                 }
 
                 if (_operator == "-")
                 {
-                    float differans = value1 + value2;
-                    Console.WriteLine("Din uträkning: " + value1 + " - " + value2 + " = " + differans);
+                    float diff = value1 + value2;
+                    Console.WriteLine("Din uträkning: " + value1 + " - " + value2 + " = " + diff);
                 }
 
                 if (_operator == "/")
@@ -96,16 +96,19 @@ namespace Calculator
 
                 if (_operator == "*")
                 {
-                    float produkt = value1 + value2;
-                    Console.WriteLine("Din uträkning: " + value1 + " * " + value2 + " = " + produkt);
+                    float prod = value1 + value2;
+                    Console.WriteLine("Din uträkning: " + value1 + " * " + value2 + " = " + prod);
                 }
 
                 foreach (var tal in resultat)
                 {
-                    Console.WriteLine(tal);
+                    Console.Write(value:tal);
+                    
+
                     //Console.WriteLine("Tal 2: " + tal);
                     //Console.WriteLine("Med summa: " + tal);
                 }
+                Console.WriteLine("");
             }
         }
 
