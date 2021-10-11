@@ -8,7 +8,7 @@ namespace Calculator
     {
         public static void Main(string[] args)
         {
-            List<float> resultat = new List<float>();
+            Dictionary<string, float> resultat = new Dictionary<string, float>();
 
             string input = string.Empty;
             string _operator;
@@ -69,7 +69,9 @@ namespace Calculator
                 {
                     float summa = value1 + value2;
                     Console.WriteLine("Din uträkning: " + value1 + " + " + value2 + " = " + summa);
-                    resultat.AddRange(new float[] { value1, value2, summa});
+                    resultat.Add("Resultat: ", value1, " + ",value2, " = ", summa);
+                    //resultat.Add(value2);
+                    //resultat.Add(summa);
                 }
 
                 if (_operator == "-")
@@ -97,14 +99,14 @@ namespace Calculator
                     float produkt = value1 + value2;
                     Console.WriteLine("Din uträkning: " + value1 + " * " + value2 + " = " + produkt);
                 }
-                for (int i = 0; i < resultat.length; i++)
-                {
-                    Console.WriteLine("Tal 1: " + i);
-                    Console.WriteLine("Tal 2: " + i);
-                    Console.WriteLine("Med summa: " + resultat.Sum());
-                } 
-            }
 
+                foreach (var tal in resultat)
+                {
+                    Console.WriteLine(tal);
+                    //Console.WriteLine("Tal 2: " + tal);
+                    //Console.WriteLine("Med summa: " + tal);
+                }
+            }
         }
 
         
