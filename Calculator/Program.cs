@@ -6,16 +6,19 @@ namespace Calculator
 {
     class Lista                                             // Skapar en klass för variabler som ska matas in i listan.
     {
-        public float Value1 { get; set; }                   // Ta emot värdet och sätt Value1
-        public string Operand { get; set; }
+        public float Value1 { get; set; }                   // Ta emot värdet och tilldela Value1
+        public string Operand { get; set; }                 // Ta emot värdet och tilldela Operand
         public float Value2 { get; set; }
         public string Likamed { get; set; }
         public float Sum { get; set; }
     }
+
     class Program
     {
         public static void Main(string[] args)
         {
+            //Fredrik Törnberg, TUCSweden, syne21lin, Programmering Grund, 21-10-13.
+
             List<Lista> resultat = new List<Lista>();       // Skapar en List för historiken från miniräknaren
 
             string input = string.Empty;                    // Variabler 
