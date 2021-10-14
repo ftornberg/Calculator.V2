@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Calculator
 {
@@ -9,7 +10,6 @@ namespace Calculator
         public float Value1 { get; set; }                   // Ta emot värdet och tilldela Value1
         public string Operand { get; set; }                 // Ta emot värdet och tilldela Operand
         public float Value2 { get; set; }
-        //public string Likamed { get; set; }
         public float Sum { get; set; }
     }
 
@@ -30,7 +30,8 @@ namespace Calculator
 
             while (true)                                                                                        // While-loop för att miniräknaren ska fortsätta.
             {
-                MataInNummer(out input, out value1);
+                MataInNummer(out input, out value1);                                                            // Metod för inmatning av nummer ger värdet till variabeln value1.
+
                 do                                                                                              // do/while-loop för inmatning av operand, den här gör i princip samma sak som första talet, men anropar förutom Marcus() även metoden Isvalidoperator() för att kontrollera så att det är en giltig operand.
                 {
                     Console.Write("Mata in din operand: ");
@@ -39,8 +40,8 @@ namespace Calculator
                     _operator = input;
 
                 } while (!Isvalidoperator(input));
-                
-                MataInNummer(out input, out value2);
+
+                MataInNummer(out input, out value2);                                                            // Metod för inmatning av nummer ger värdet till variabeln value2.
 
                 // if-loopar för att kontrollera vilket räknesätt som ska användas, kommer även att utföra beräkningen och föra in värdet i variablerna i listan.
 
@@ -70,7 +71,7 @@ namespace Calculator
                             MataInNummer(out input, out value2);
                         }
                         while (value2 == 0);
-                        
+
                         float kvot = value1 / value2;
                         resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = kvot });
                     }
@@ -88,16 +89,30 @@ namespace Calculator
                     Console.WriteLine($"Din uträkning: {value1} * {value2} = {prod}");
                     resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = prod });
                 }
-                Console.Clear();    
+                
+                if (_operator == "^")                                                                           // Kontrollerar om multiplikation.
+                {
+                    float potens = (float)Math.Pow(value1, value2);
+                    Console.WriteLine($"Din uträkning: {value1} ^ {value2} = {potens}");
+                    resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = potens });
+                }
+
+                Console.Clear();
                 Console.WriteLine("-= Historik =-\n");                                                          // Rubrik för historiken som är i listan.                                                             
 
-                foreach (Lista post in resultat)                                                                // Skriver ut värden ur listan.
-                {
+                GetHistory(resultat);                                                                           // Metod för att hämta historik, gjorde metod utifall man i framtiden skulle vilja skriva ut historiken fler gånger. 
 
-                    Console.Write($"{ post.Value1} {post.Operand} {post.Value2} = {post.Sum}\n");               // Skriv ut värdet som finns i kolumnen Value1
-
-                }
                 Console.WriteLine("");
+            }
+        }
+
+        private static void GetHistory(List<Lista> resultat)
+        {
+            foreach (Lista post in resultat)                                                                // Skriver ut värden ur listan.
+            {
+
+                Console.Write($"{ post.Value1} {post.Operand} {post.Value2} = {post.Sum}\n");               // Skriv ut värdet som finns i kolumnen Value1
+
             }
         }
 
@@ -141,8 +156,12 @@ namespace Calculator
             {
                 return true;
             }
-            
-            Console.WriteLine("Felaktig inmatning, endast operanderna: + - / *");       // om input inte stämmer med något av räknesätten så skriv ut meddelande. 
+            if (input == "^")
+            {
+                return true;
+            }
+
+            Console.WriteLine("Felaktig inmatning, endast operanderna: + - / * ^");       // om input inte stämmer med något av räknesätten så skriv ut meddelande. 
             return false;                                                               // och returnera false.
            
         }
@@ -154,6 +173,9 @@ namespace Calculator
             if (input.ToLower() == "marcus")                                        // gör om inmatningen till gemener för att lättare kunna kontrollera om det är marcus om är inmatat. 
             {
                 Console.WriteLine("Hej Marcus!");                                   // om värdet i input är marcus så skriver vi ut "Hej Marcus!" och...
+                Thread.Sleep(1000);
+                Console.WriteLine("Hejdå, Marcus!");
+                Thread.Sleep(2000);
                 Environment.Exit(0);                                                // Avslutar programmet.
             }
 
