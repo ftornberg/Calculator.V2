@@ -31,24 +31,6 @@ namespace Calculator
             while (true)                                                                                        // While-loop för att miniräknaren ska fortsätta.
             {
                 MataInNummer(out input, out value1);
-                //bool value1isvalid = false;                                                                    
-                //do                                                                                              
-                //{
-                //    Console.Write("Mata in ditt första tal: ");
-                //    input = Console.ReadLine();                                                                 
-                //    Marcus(input);                                                                               
-
-                //    if (float.TryParse(input, out value1))                                                  
-                //    {
-                //        value1isvalid = true;                                                               
-                //    }
-                //    else                                                                                    
-                //    {
-                //        Console.WriteLine("Felaktig inmatning: Endast numeriska tal kan användas!");        
-                //    }
-
-                //} while (!value1isvalid);                                                                       
-
                 do                                                                                              // do/while-loop för inmatning av operand, den här gör i princip samma sak som första talet, men anropar förutom Marcus() även metoden Isvalidoperator() för att kontrollera så att det är en giltig operand.
                 {
                     Console.Write("Mata in din operand: ");
