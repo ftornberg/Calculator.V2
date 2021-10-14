@@ -97,7 +97,7 @@ namespace Calculator
                     
                     if (value2 == 0)                                                    // Kontroll om value2 är 0, för att undvika att dividera med noll.
                     {
-                        Console.WriteLine("Tyvärr går det inte att dividera med noll.");        // Meddelar användaren att det inte går att dela med noll, skickar tillbaka till början för att göra om inmatningen.
+                        Console.WriteLine("Det går inte att dividera med noll, du borde veta bättre än så.");        // Meddelar användaren att det inte går att dela med noll, skickar tillbaka till början för att göra om inmatningen.
                     }
                     else
                     {
@@ -113,7 +113,7 @@ namespace Calculator
                     Console.WriteLine("Din uträkning: " + value1 + " * " + value2 + " = " + prod);
                     resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Likamed = "=", Sum = prod });
                 }
-
+                Console.Clear();
                 Console.WriteLine("-= Historik =-");                                // Rubrik för historiken som är i listan.
                 Console.WriteLine("");                                              // Radbryt
 
