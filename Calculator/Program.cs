@@ -9,7 +9,7 @@ namespace Calculator
         public float Value1 { get; set; }                   // Ta emot värdet och tilldela Value1
         public string Operand { get; set; }                 // Ta emot värdet och tilldela Operand
         public float Value2 { get; set; }
-        public string Likamed { get; set; }
+        //public string Likamed { get; set; }
         public float Sum { get; set; }
     }
 
@@ -26,38 +26,38 @@ namespace Calculator
             float value1;
             float value2;
 
-            Console.WriteLine(" - Välkommen till en fantastisk miniräknare - ");        // Välkomstmeddelande
+            Console.WriteLine(" - Välkommen till en fantastisk miniräknare - ");                                // Välkomstmeddelande
 
-            while (true)                                                                // While-loop för att miniräknaren ska fortsätta.
+            while (true)                                                                                        // While-loop för att miniräknaren ska fortsätta.
             {
-                bool value1isvalid = false;                                             // Sätter en bool-variabel med värdet false.
-                do                                                                      // do/while-loop för inmatning av första talet
+                bool value1isvalid = false;                                                                     // Sätter en bool-variabel med värdet false.
+                do                                                                                              // do/while-loop för inmatning av första talet
                 {
                     Console.Write("Mata in ditt första tal: ");
-                    input = Console.ReadLine();                                         // Lyssnar efter värde från användaren och sätter det i variabeln input.
-                    Marcus(input);                                                      // Anropar metoden Marcus() för att kontrollera om det inmatade värdet är "Marcus" 
+                    input = Console.ReadLine();                                                                 // Lyssnar efter värde från användaren och sätter det i variabeln input.
+                    Marcus(input);                                                                              // Anropar metoden Marcus() för att kontrollera om det inmatade värdet är "Marcus" 
                         
-                        if (float.TryParse(input, out value1))                          // if-sats som försöker göra om input till en float-variabel, om det går så ger den variabeln value1 det värdet.
+                        if (float.TryParse(input, out value1))                                                  // if-sats som försöker göra om input till en float-variabel, om det går så ger den variabeln value1 det värdet.
                         {
-                            value1isvalid = true;                                       // Om den lyckades göra om input till float så sätter den value1isvalid = true och kan lämna do/while loopen.
+                            value1isvalid = true;                                                               // Om den lyckades göra om input till float så sätter den value1isvalid = true och kan lämna do/while loopen.
                         }
-                        else                                                            // Om den inte lyckas göra om input till float så är det ett felaktigt tecken (inte numeriskt).
+                        else                                                                                    // Om den inte lyckas göra om input till float så är det ett felaktigt tecken (inte numeriskt).
                         {
                             Console.WriteLine("Felaktig inmatning: Endast numeriska tal kan användas!");        // Uppmanar användaren till att endast använda numeriska tal.
                         }
 
-                } while (!value1isvalid);                                               // Kontrollerar om variabeln value1isvalid är true/false (true bryter loopen och går till nästa rad).
+                } while (!value1isvalid);                                                                       // Kontrollerar om variabeln value1isvalid är true/false (true bryter loopen och går till nästa rad).
 
-                do                                                                      // do/while-loop för inmatning av operand, den här gör i princip samma sak som första talet, men anropar förutom Marcus() även metoden Isvalidoperator() för att kontrollera så att det är en giltig operand.
+                do                                                                                              // do/while-loop för inmatning av operand, den här gör i princip samma sak som första talet, men anropar förutom Marcus() även metoden Isvalidoperator() för att kontrollera så att det är en giltig operand.
                 {
                     Console.Write("Mata in din operand: ");
                     input = Console.ReadLine();
-                    Marcus(input);
+                    Marcus(input);                                                                              //Eftersom att användare inte går att lita på så kontrollerar vi om de skriver Marcus även här.
                     _operator = input;
 
                 } while (!Isvalidoperator(input));
 
-                bool value2isvalid = false;                                             // Exakt likadan som för första talet, men för andra talet. 
+                bool value2isvalid = false;                                                                     // Exakt likadan som för första talet, men för andra talet. 
                 do
                 {
                     Console.Write("Mata in ditt andra tal: ");
@@ -77,56 +77,51 @@ namespace Calculator
 
                 // if-loopar för att kontrollera vilket räknesätt som ska användas, kommer även att utföra beräkningen och föra in värdet i variablerna i listan.
 
-                if (_operator == "+")                                                // Kontrollerar om addition
+                if (_operator == "+")                                                                           // Kontrollerar om addition
                 {
-                    float sum = value1 + value2;                                        // Ger variabeln sum, summan av value1 och value2. 
-                    Console.WriteLine("Din uträkning: " + value1 + " + " + value2 + " = " + sum);  // Skriver ut beräkningen för användaren.
-                    resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Likamed = "=", Sum = sum });            // Lägger till värdena i listan.
+                    float sum = value1 + value2;                                                                // Ger variabeln sum, summan av value1 och value2. 
+                    Console.WriteLine($"Din uträkning: {value1} + {value2} = {sum}");                           // Skriver ut beräkningen för användaren.
+                    resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = sum });            // Lägger till värdena i listan.
                     
                 }
 
-                if (_operator == "-")                                               // Kontrollerar om subtraktion
+                if (_operator == "-")                                                                           // Kontrollerar om subtraktion
                 {
                     float diff = value1 - value2;
-                    Console.WriteLine("Din uträkning: " + value1 + " - " + value2 + " = " + diff);
-                    resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Likamed = "=", Sum = diff });
+                    Console.WriteLine($"Din uträkning: {value1} - {value2} = {diff}");
+                    resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = diff });
                 }
 
-                if (_operator == "/")                                              // Kontrollerar om division
+                if (_operator == "/")                                                                           // Kontrollerar om division
                 {
                     
-                    if (value2 == 0)                                                    // Kontroll om value2 är 0, för att undvika att dividera med noll.
+                    if (value2 == 0)                                                                            // Kontroll om value2 är 0, för att undvika att dividera med noll.
                     {
                         Console.WriteLine("Det går inte att dividera med noll, du borde veta bättre än så.");        // Meddelar användaren att det inte går att dela med noll, skickar tillbaka till början för att göra om inmatningen.
+
                     }
                     else
                     {
-                        float kvot = value1 / value2;                                           // Om value2 inte är 0 så utförs beräkningen.
-                        Console.WriteLine("Din uträkning: " + value1 + " / " + value2 + " = " + kvot);
-                        resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Likamed = "=", Sum = kvot });
+                        float kvot = value1 / value2;                                                           // Om value2 inte är 0 så utförs beräkningen.
+                        Console.WriteLine($"Din uträkning: {value1} / {value2} = {kvot}");
+                        resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = kvot });
                     }
                 }
 
-                if (_operator == "*")                                               // Kontrollerar om multiplikation.
+                if (_operator == "*")                                                                           // Kontrollerar om multiplikation.
                 {
                     float prod = value1 * value2;
-                    Console.WriteLine("Din uträkning: " + value1 + " * " + value2 + " = " + prod);
-                    resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Likamed = "=", Sum = prod });
+                    Console.WriteLine($"Din uträkning: {value1} * {value2} = {prod}");
+                    resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = prod });
                 }
                 Console.Clear();
-                Console.WriteLine("-= Historik =-");                                // Rubrik för historiken som är i listan.
-                Console.WriteLine("");                                              // Radbryt
+                Console.WriteLine("-= Historik =-\n");                                                          // Rubrik för historiken som är i listan.                                                             
 
-                foreach (Lista post in resultat)                                    // Skriver ut värden ur listan.
+                foreach (Lista post in resultat)                                                                // Skriver ut värden ur listan.
                 {
                     
-                    Console.Write(post.Value1 + " ");                               // Skriv ut värdet som finns i kolumnen Value1
-                    Console.Write(post.Operand + " ");                              // Skriv ut värdet som finns i kolumnen Operand
-                    Console.Write(post.Value2 + " ");
-                    Console.Write(post.Likamed + " ");
-                    Console.Write(post.Sum + " ");
-                    Console.WriteLine("");                                          // Radbryt
-
+                    Console.Write($"{ post.Value1} {post.Operand} {post.Value2} = {post.Sum}\n");               // Skriv ut värdet som finns i kolumnen Value1
+                   
                 }
                 Console.WriteLine("");
             }
