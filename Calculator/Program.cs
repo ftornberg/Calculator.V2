@@ -44,11 +44,12 @@ namespace Calculator
                 MataInNummer(out input, out value2);                                                            // Metod för inmatning av nummer ger värdet till variabeln value2.
 
                 // if-loopar för att kontrollera vilket räknesätt som ska användas, kommer även att utföra beräkningen och föra in värdet i variablerna i listan.
+                // FÖRBÄTTRING: jag hade kunnat lägga in alla räknesätt i en och samma if-loop eller göra en metod för hanteringen av dem.
 
                 if (_operator == "+")                                                                           // Kontrollerar om addition
                 {
                     float sum = value1 + value2;                                                                // Ger variabeln sum, summan av value1 och value2. 
-                    Console.WriteLine($"Din uträkning: {value1} + {value2} = {sum}");                           // Skriver ut beräkningen för användaren.
+                    Console.WriteLine($"Din uträkning: {value1} {_operator} {value2} = {sum}");                           // Skriver ut beräkningen för användaren.
                     resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = sum });            // Lägger till värdena i listan.
 
                 }
@@ -56,7 +57,7 @@ namespace Calculator
                 if (_operator == "-")                                                                           // Kontrollerar om subtraktion
                 {
                     float diff = value1 - value2;
-                    Console.WriteLine($"Din uträkning: {value1} - {value2} = {diff}");
+                    Console.WriteLine($"Din uträkning: {value1} {_operator} {value2} = {diff}");
                     resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = diff });
                 }
 
@@ -78,7 +79,7 @@ namespace Calculator
                     else
                     {
                         float kvot = value1 / value2;                                                           // Om value2 inte är 0 så utförs beräkningen.
-                        Console.WriteLine($"Din uträkning: {value1} / {value2} = {kvot}");
+                        Console.WriteLine($"Din uträkning: {value1} {_operator} {value2} = {kvot}");
                         resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = kvot });
                     }
                 }
@@ -86,14 +87,14 @@ namespace Calculator
                 if (_operator == "*")                                                                           // Kontrollerar om multiplikation.
                 {
                     float prod = value1 * value2;
-                    Console.WriteLine($"Din uträkning: {value1} * {value2} = {prod}");
+                    Console.WriteLine($"Din uträkning: {value1} {_operator} {value2} = {prod}");
                     resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = prod });
                 }
                 
                 if (_operator == "^")                                                                           // Kontrollerar om multiplikation.
                 {
                     float potens = (float)Math.Pow(value1, value2);
-                    Console.WriteLine($"Din uträkning: {value1} ^ {value2} = {potens}");
+                    Console.WriteLine($"Din uträkning: {value1} {_operator} {value2} = {potens}");
                     resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = potens });
                 }
 
@@ -140,25 +141,9 @@ namespace Calculator
 
         private static bool Isvalidoperator(string input)                           // Metod för att kontrollera om operanden är giltig. 
         {
-            if (input == "+")                                                       // om input är "+" så.. 
+            if (input == "+" || input == "-" || input == "/" || input == "*" || input == "^")                                                       // om input är "+" så.. 
             {
                 return true;                                                        // skicka tillbaka "true", annars kolla om nästa if stämmer.
-            }
-            if (input == "-")
-            {
-                return true;
-            }
-            if (input == "/")
-            {
-                return true;
-            }
-            if (input == "*")
-            {
-                return true;
-            }
-            if (input == "^")
-            {
-                return true;
             }
 
             Console.WriteLine("Felaktig inmatning, endast operanderna: + - / * ^");       // om input inte stämmer med något av räknesätten så skriv ut meddelande. 
@@ -175,6 +160,8 @@ namespace Calculator
                 Console.WriteLine("Hej Marcus!");                                   // om värdet i input är marcus så skriver vi ut "Hej Marcus!" och...
                 Thread.Sleep(1000);
                 Console.WriteLine("Hejdå, Marcus!");
+                Thread.Sleep(1000);
+                Console.WriteLine("Tack för idag!");
                 Thread.Sleep(2000);
                 Environment.Exit(0);                                                // Avslutar programmet.
             }
