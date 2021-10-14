@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Calculator
 {
-    class Lista                                             // Skapar en klass för variabler som ska matas in i listan.
+    class Lista                                             // Skapar en klass för variabler som ska matas in i listan, talen räknas ut i if-satserna för operanderna, klassen ligger egentligen i separat fil. 
     {
         public float Value1 { get; set; }                   // Ta emot värdet och tilldela Value1
         public string Operand { get; set; }                 // Ta emot värdet och tilldela Operand
@@ -19,7 +19,7 @@ namespace Calculator
         {
             //Fredrik Törnberg, TUCSweden, syne21lin, Programmering Grund, 21-10-13.
 
-            List<Lista> resultat = new List<Lista>();       // Skapar en List för historiken från miniräknaren
+            List<Lista> resultat = new List<Lista>();       // Skapar en List för historiken från miniräknaren.
 
             string input = string.Empty;                    // Variabler 
             string _operator;
@@ -32,11 +32,11 @@ namespace Calculator
             {
                 MataInNummer(out input, out value1);                                                            // Metod för inmatning av nummer ger värdet till variabeln value1.
 
-                do                                                                                              // do/while-loop för inmatning av operand, den här gör i princip samma sak som första talet, men anropar förutom Marcus() även metoden Isvalidoperator() för att kontrollera så att det är en giltig operand.
+                do                                                                                              // do/while-loop för inmatning av operand, anropar förutom Marcus() även metoden Isvalidoperator() för att kontrollera så att det är en giltig operand.
                 {
                     Console.Write("Mata in din operand: ");
                     input = Console.ReadLine();
-                    Marcus(input);                                                                              //Eftersom att användare inte går att lita på så kontrollerar vi om de skriver Marcus även här.
+                    Marcus(input);                                                                              // Eftersom att användare inte går att lita på så kontrollerar vi om de skriver Marcus även här.
                     _operator = input;
 
                 } while (!Isvalidoperator(input));
@@ -44,14 +44,13 @@ namespace Calculator
                 MataInNummer(out input, out value2);                                                            // Metod för inmatning av nummer ger värdet till variabeln value2.
 
                 // if-loopar för att kontrollera vilket räknesätt som ska användas, kommer även att utföra beräkningen och föra in värdet i variablerna i listan.
-                // FÖRBÄTTRING: jag hade kunnat lägga in alla räknesätt i en och samma if-loop eller göra en metod för hanteringen av dem.
+                // FÖRBÄTTRING: jag hade kunnat lägga in alla räknesätt i en och samma if-loop eller göra en metod för hanteringen av dem, men just nu tyckte jag att det var lättare att hantera dem såhär.
 
                 if (_operator == "+")                                                                           // Kontrollerar om addition
                 {
                     float sum = value1 + value2;                                                                // Ger variabeln sum, summan av value1 och value2. 
                     Console.WriteLine($"Din uträkning: {value1} {_operator} {value2} = {sum}");                           // Skriver ut beräkningen för användaren.
                     resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = sum });            // Lägger till värdena i listan.
-
                 }
 
                 if (_operator == "-")                                                                           // Kontrollerar om subtraktion
@@ -63,7 +62,6 @@ namespace Calculator
 
                 if (_operator == "/")                                                                           // Kontrollerar om division
                 {
-
                     if (value2 == 0)                                                                            // Kontroll om value2 är 0, för att undvika att dividera med noll.
                     {
                         do
@@ -100,9 +98,7 @@ namespace Calculator
 
                 Console.Clear();
                 Console.WriteLine("-= Historik =-\n");                                                          // Rubrik för historiken som är i listan.                                                             
-
                 GetHistory(resultat);                                                                           // Metod för att hämta historik, gjorde metod utifall man i framtiden skulle vilja skriva ut historiken fler gånger. 
-
                 Console.WriteLine("");
             }
         }
@@ -111,9 +107,7 @@ namespace Calculator
         {
             foreach (Lista post in resultat)                                                                // Skriver ut värden ur listan.
             {
-
                 Console.Write($"{ post.Value1} {post.Operand} {post.Value2} = {post.Sum}\n");               // Skriv ut värdet som finns i kolumnen Value1
-
             }
         }
 
@@ -134,10 +128,8 @@ namespace Calculator
                 {
                     Console.WriteLine("Felaktig inmatning: Endast numeriska tal kan användas!");            // Uppmanar användaren till att endast använda numeriska tal.
                 }
-
             } while (!valueisvalid);                                                                        // Kontrollerar om variabeln valueisvalid är true/false (true bryter loopen).
         }
-
 
         private static bool Isvalidoperator(string input)                           // Metod för att kontrollera om operanden är giltig. 
         {
@@ -145,19 +137,15 @@ namespace Calculator
             {
                 return true;                                                        // skicka tillbaka "true", annars kolla om nästa if stämmer.
             }
-
-            Console.WriteLine("Felaktig inmatning, endast operanderna: + - / * ^");       // om input inte stämmer med något av räknesätten så skriv ut meddelande. 
+            Console.WriteLine("Felaktig inmatning, endast operanderna: + - / * ^");       // Om input inte stämmer med något av räknesätten så skriv ut meddelande. 
             return false;                                                               // och returnera false.
-           
         }
 
         public static void Marcus(string input)                                     // Metod för att kontrollera om användaren har skrivit in marcus.
-
         {
-
-            if (input.ToLower() == "marcus")                                        // gör om inmatningen till gemener för att lättare kunna kontrollera om det är marcus om är inmatat. 
+            if (input.ToLower() == "marcus")                                        // Gör om inmatningen till gemener för att lättare kunna kontrollera om det är marcus om är inmatat. 
             {
-                Console.WriteLine("Hej Marcus!");                                   // om värdet i input är marcus så skriver vi ut "Hej Marcus!" och...
+                Console.WriteLine("Hej Marcus!");                                   // Om värdet i input är marcus så skriver vi ut "Hej Marcus!" och...
                 Thread.Sleep(1000);
                 Console.WriteLine("Hejdå, Marcus!");
                 Thread.Sleep(1000);
@@ -165,7 +153,6 @@ namespace Calculator
                 Thread.Sleep(2000);
                 Environment.Exit(0);                                                // Avslutar programmet.
             }
-
         }
     }
 }
