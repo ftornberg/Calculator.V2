@@ -24,23 +24,24 @@ namespace Calculator
             string _operator;
             float value1;
             float value2;
+            float sum = 0;
 
-            Console.WriteLine(" -=[ Välkommen till en fantastisk miniräknare ]=- ");                                // Välkomstmeddelande
+            Console.WriteLine(" -=[ Välkommen till en fantastisk miniräknare ]=- ");
 
-            while (true)                                                                                        // While-loop för att miniräknaren ska fortsätta.
+            while (true)                                        // While-loop för att miniräknaren ska fortsätta.
             {
-                InputNumber(out input, out value1);                                                            // Metod för inmatning av nummer ger värdet till variabeln value1.
+                InputNumber(out input, out value1);             // Kallar på metod för inmatning av nummer som ger värdet till variabeln value1.
 
-                do                                                                                              // do/while-loop för inmatning av operand, anropar förutom Marcus() även metoden Isvalidoperator() för att kontrollera så att det är en giltig operand.
+                do                                              // do/while-loop för inmatning av operand, anropar förutom Marcus() även metoden Isvalidoperator() för att kontrollera så att det är en giltig operand.
                 {
                     Console.Write("Mata in din operand: ");
                     input = Console.ReadLine();
-                    Marcus(input);                                                                              // Eftersom att användare inte går att lita på så kontrollerar vi om de skriver Marcus även här.
+                    Marcus(input);                              // Eftersom att användare inte går att lita på så kontrollerar vi om de skriver Marcus även här.
                     _operator = input;
 
                 } while (!Isvalidoperator(input));
 
-                InputNumber(out input, out value2);                                                            // Metod för inmatning och kontroll av nummer ger värdet till variabeln value2.
+                InputNumber(out input, out value2);             // Metod för inmatning och kontroll av nummer ger värdet till variabeln value2.
 
                 // if-loopar för att kontrollera vilket räknesätt som ska användas, kommer även att utföra beräkningen och föra in värdet i variablerna i listan.
                 // FÖRBÄTTRING: jag hade kunnat lägga in alla räknesätt i en och samma if-loop eller göra en metod för hanteringen av dem, men just nu tyckte jag att det var lättare att hantera dem såhär.
@@ -48,74 +49,61 @@ namespace Calculator
 
                 if (_operator == "+")
                 {
-                    float sum = value1 + value2;
-                    CalcToList(resultat, _operator, value1, value2, sum);
+                    sum = value1 + value2;
                 }
 
                 if (_operator == "-")
                 {
-                    float sum = value1 - value2;
-                    CalcToList(resultat, _operator, value1, value2, sum);
+                    sum = value1 - value2;
                 }
 
                 if (_operator == "/")
                 {
-                    if (value2 == 0)                                                                            // Kontroll om value2 är 0, för att undvika att dividera med noll.
+                    while(value2 == 0)                          //Kontroll för divByZero
                     {
-                        do
-                        {
-                            Console.WriteLine("\n -=[ Det går inte att dividera med noll, du borde veta bättre än så.\n");        // Meddelar användaren att det inte går att dela med noll, skickar tillbaka till början för att göra om inmatningen.
-                            InputNumber(out input, out value2);
-                        }
-                        while (value2 == 0);
-
-                        float sum = value1 / value2;
-                        resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = sum });
+                        Console.WriteLine("\n -=[ Det går inte att dividera med noll, du borde veta bättre än så.\n");        // Meddelar användaren att det inte går att dela med noll, skickar tillbaka till början för att göra om inmatningen.
+                        InputNumber(out input, out value2);
                     }
-                    else
-                    {
-                        float sum = value1 / value2;                                                           // Om value2 inte är 0 så utförs beräkningen.
-                        CalcToList(resultat, _operator, value1, value2, sum);
-                    }
+                    
+                    sum = value1 / value2;
                 }
 
                 if (_operator == "*")
                 {
-                    float sum = value1 * value2;
-                    CalcToList(resultat, _operator, value1, value2, sum);
+                    sum = value1 * value2;
                 }
 
                 if (_operator == "^")
                 {
-                    float sum = (float)Math.Pow(value1, value2);
-                    CalcToList(resultat, _operator, value1, value2, sum);
+                    sum = (float)Math.Pow(value1, value2);
                 }
-
+                CalcToList(resultat, _operator, value1, value2, sum);       // Använder metod för importeringen till listan.
+                Console.WriteLine($"Ditt resultat blev {value1} {_operator} {value2} = {sum}");
+                Console.ReadKey();
                 Console.Clear();
-                Console.WriteLine("-= Historik =-\n");
-                GetHistory(resultat);                                                                      // Metod för att hämta historik, gjorde metod utifall man i framtiden skulle vilja skriva ut historiken fler gånger. 
+                GetHistory(resultat);                                       // Metod för att hämta historik, gjorde metod utifall man i framtiden skulle vilja skriva ut historiken fler gånger. 
                 Console.WriteLine("");
             }
         }
 
-        private static void InputNumber(out string input, out float valueOut)
+        private static void InputNumber(out string input, out float valueOut)       // Metod för kontrollera om input är ett tal eller "Marcus"
         {
-            bool valueisvalid = false;                                                                      // Sätter en bool-variabel med värdet false.
-            do                                                                                              // do/while-loop för inmatning av talet.
+            bool valueisvalid = false;                                              // Sätter en bool-variabel med värdet false.
+            do                                                                      // do/while-loop för inmatning av talet.
             {
                 Console.Write("Mata in ditt tal: ");
-                input = Console.ReadLine();                                                                 // Lyssnar efter värde från användaren och sätter det i variabeln input.
-                Marcus(input);                                                                              // Anropar metoden Marcus() för att kontrollera om det inmatade värdet är "Marcus"
+                input = Console.ReadLine();                                         // Lyssnar efter värde från användaren och sätter det i variabeln input.
+                Marcus(input);                                                      // Anropar metoden Marcus() för att kontrollera om det inmatade värdet är "Marcus"
 
-                if (float.TryParse(input, out valueOut))                                                    // if-sats som försöker göra om input till en float-variabel, om det går så ger den variabeln value1 det värdet.
+                if (float.TryParse(input, out valueOut))                            // if-sats som försöker göra om input till en float-variabel, om det går så ger den variabeln value1 det värdet.
                 {
-                    valueisvalid = true;                                                                    // Om den lyckades göra om input till float så sätter den value1isvalid = true och kan lämna do/while loopen.
+                    valueisvalid = true;                                            // Om den lyckades göra om input till float så sätter den value1isvalid = true och kan lämna do/while loopen.
                 }
-                else                                                                                        // Om den inte lyckas göra om input till float så är det ett felaktigt tecken (inte numeriskt).
+                else                                                                // Om den inte lyckas göra om input till float så är det ett felaktigt tecken (inte numeriskt).
                 {
                     Console.WriteLine("\n -=[ Felaktig inmatning: Endast numeriska tal kan användas!\n");            // Uppmanar användaren till att endast använda numeriska tal.
                 }
-            } while (!valueisvalid);                                                                        // Kontrollerar om variabeln valueisvalid är true/false (true bryter loopen).
+            } while (!valueisvalid);                                                // Kontrollerar om variabeln valueisvalid är true/false (true bryter loopen).
         }
 
         private static bool Isvalidoperator(string input)                           // Metod som kontrollerar om operanden är giltig. 
@@ -130,13 +118,13 @@ namespace Calculator
 
         private static void CalcToList(List<Lista> resultat, string _operator, float value1, float value2, float sum)
         {
-            Console.WriteLine($"Din uträkning: {value1} {_operator} {value2} = {sum}");                              // Skriver ut beräkningen för användaren.
             resultat.Add(new Lista { Value1 = value1, Operand = _operator, Value2 = value2, Sum = sum });            // Lägger till värdena i listan "resultat" med hjälp av klassen "Lista".
         }
 
         private static void GetHistory(List<Lista> resultat)
         {
-            foreach (Lista post in resultat)                                                                // Skriver ut värden ur listan.
+            Console.WriteLine("-= Historik =-\n");
+            foreach (Lista post in resultat)                                        // Skriver ut värden ur listan.
             {
                 Console.Write($"{ post.Value1} {post.Operand} {post.Value2} = {post.Sum}\n");               // Skriv ut värdet som finns i kolumnen Value1, Operand, Value2 och Sum.
             }
@@ -156,11 +144,11 @@ namespace Calculator
             }
             CurseWord(input);
         }
-        public static void CurseWord(string input)                                     // Metod för att kontrollera om användaren har skrivit in marcus.
+        public static void CurseWord(string input)
         {
-            if (input.ToLower() == "fan" || input.ToLower() == "skit" || input.ToLower() == "helvete")  // Gör om inmatningen till gemener för att lättare kunna kontrollera om input stämmer. 
+            if (input.ToLower() == "fan" || input.ToLower() == "skit" || input.ToLower() == "helvete")   // Gör om inmatningen till gemener för att lättare kunna kontrollera om input stämmer. 
             {
-                Console.WriteLine("Även om jag bara är en enkel miniräkare så har jag känslor.");                                   // några svar på random inmatningar.
+                Console.WriteLine("Även om jag bara är en enkel miniräkare så har jag känslor.");        // några svar på random inmatningar.
                 Thread.Sleep(1000);
                 Console.WriteLine("Du får tänka på vad du säger,");
                 Thread.Sleep(1000);
