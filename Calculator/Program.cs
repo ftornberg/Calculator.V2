@@ -5,7 +5,7 @@ using System.Threading;
 
 namespace Calculator
 {
-    class Lista                                             // Skapar en klass för variabler som ska matas in i listan.
+    class Lista                                             // Skapar en klass för att kunna variablerna i kolumner för lättare utskrift.
     {
         public float Value1 { get; set; }                   // Ta emot värdet och tilldela Value1
         public string Operand { get; set; }                 // Ta emot värdet och tilldela Operand
