@@ -20,15 +20,15 @@ namespace Calculator
 
             List<Lista> resultat = new List<Lista>();       // Skapar en List för historiken från miniräknaren.
 
-            string input = string.Empty;                    // Variabler 
+            string input = string.Empty;                    
             string _operator;
             float value1;
             float value2;
             float sum = 0;
-
+            
             Console.WriteLine(" -=[ Välkommen till en fantastisk miniräknare ]=- ");
 
-            while (true)                                        // While-loop för att miniräknaren ska fortsätta.
+            while (true)                                       
             {
                 InputNumber(out input, out value1);             // Kallar på metod för inmatning av nummer som ger värdet till variabeln value1.
 
@@ -44,8 +44,8 @@ namespace Calculator
                 InputNumber(out input, out value2);             // Metod för inmatning och kontroll av nummer ger värdet till variabeln value2.
 
                 // if-loopar för att kontrollera vilket räknesätt som ska användas, kommer även att utföra beräkningen och föra in värdet i variablerna i listan.
-                // FÖRBÄTTRING: jag hade kunnat lägga in alla räknesätt i en och samma if-loop eller göra en metod för hanteringen av dem, men just nu tyckte jag att det var lättare att hantera dem såhär.
-                // flyttade utskriften av meddelande till anv och importeringen till listan till metoden CalcToList() (sparade två rader kod / räknesätt). 
+                // FÖRBÄTTRING: jag hade nog kunnat lägga in alla räknesätt i en och samma if-loop eller göra en metod för hanteringen av dem, men just nu tyckte jag att det var lättare att hantera dem såhär.
+                // flyttade utskriften av meddelande till användaren och importeringen till listan till metoden CalcToList() istället för att ha den i varje if-sats. 
 
                 if (_operator == "+")
                 {
@@ -88,8 +88,8 @@ namespace Calculator
 
         private static void InputNumber(out string input, out float valueOut)       // Metod för kontrollera om input är ett tal eller "Marcus"
         {
-            bool valueisvalid = false;                                              // Sätter en bool-variabel med värdet false.
-            do                                                                      // do/while-loop för inmatning av talet.
+            bool valueisvalid = false;                                              
+            do                                                                      
             {
                 Console.Write("Mata in ditt tal: ");
                 input = Console.ReadLine();                                         // Lyssnar efter värde från användaren och sätter det i variabeln input.
